@@ -26,25 +26,26 @@ io.on('connection', function(socket) {
 
     console.log(playerCount)
 
-    if (playerCount <= 2) {
-        socket.join("room1")
-    }
 
-    if (playerCount == 1) {
+    socket.join("room1")
+
+   // if (playerCount == 1) {
+        console.log("emit to player 1")
         socket.to(player1ID).emit('assignTurn', {
             player1: player1,
             playerID: player1ID,
             player2ID: player2ID
         });
-    } else if (playerCount == 2) {
+   // } else if (playerCount == 2) {
+        console.log("emit to player 2")
         socket.to(player2ID).emit('assignTurn', {
             player1: !player1,
             playerID: player2ID,
             player2ID: player2ID
         });
-    }
+    // }
 
-    socket.to("room1").emit('gameOn', {
+    socket.emit('gameOn', {
         game: gameBoard,
     });
 
