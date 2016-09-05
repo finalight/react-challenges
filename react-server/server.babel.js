@@ -10,18 +10,36 @@ let gameBoard = [
 ]
 let player1 = true;
 let playerCount = 0;
+let player1ID = null;
+let player2ID = null;
 io.on('connection', function(socket) {
     playerCount++;
+
+    if (player1ID == null) {
+        player1ID = socket.id;
+    } else if (player2ID == null) {
+        player2ID = socket.id;
+    }
+
     console.log(playerCount)
-        // if (playerCount <= 2) {
     socket.join("room1")
-        // }
 
     socket.to("room1").emit('gameOn', {
         game: gameBoard,
+    });
+
+    socket.broadcast.to(player1ID).emit('gameOn', {
         player1: player1
     });
 
+    socket.broadcast.to(player2ID).emit('gameOn', {
+        player1: !player1
+    });
+
+    socket.on('disconnect', function() {
+        playerCount--;
+        console.log(playerCount)
+    });
     socket.on('whatever', function(data) {
         gameBoard = data;
         player1 = !player1;
