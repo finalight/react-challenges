@@ -15,7 +15,6 @@ io.on('connection', function(socket) {
         console.log(gameBoard)
         //emit the gameboard back
         socket.emit('anyhow', gameBoard);
-
     });
 });
 
