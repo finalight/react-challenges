@@ -28,11 +28,11 @@ io.on('connection', function(socket) {
         game: gameBoard,
     });
 
-    socket.broadcast.to(player1ID).emit('gameOn', {
+    socket.broadcast.to(player1ID).emit('assignTurn', {
         player1: player1
     });
 
-    socket.broadcast.to(player2ID).emit('gameOn', {
+    socket.broadcast.to(player2ID).emit('assignTurn', {
         player1: !player1
     });
 
