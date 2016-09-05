@@ -2,10 +2,16 @@ import express from 'express';
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+
+let gameBoard = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
 io.on('connection', function(socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function(data) {
-        console.log(data);
+    socket.emit('gameOn', gameBoard);
+    socket.on('whatever', function(data) {
+        gameBoard = gameBoard;
     });
 });
 
