@@ -12,6 +12,7 @@ io.on('connection', function(socket) {
     socket.emit('gameOn', gameBoard);
     socket.on('whatever', function(data) {
         gameBoard = gameBoard;
+        console.log(gameBoard)
     });
 });
 
