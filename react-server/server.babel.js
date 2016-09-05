@@ -11,7 +11,7 @@ let gameBoard = [
 io.on('connection', function(socket) {
     socket.emit('gameOn', gameBoard);
     socket.on('whatever', function(data) {
-        gameBoard = gameBoard;
+        gameBoard = data;
         console.log(gameBoard)
     });
 });
