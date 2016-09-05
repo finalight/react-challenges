@@ -12,22 +12,22 @@ let player1 = true;
 let playerCount = 0;
 io.on('connection', function(socket) {
     playerCount++;
+    console.log(playerCount)
+        // if (playerCount <= 2) {
+    socket.join("room1")
+        // }
 
-    if (playerCount <= 2) {
-        socket.join("room1")
-    }
-
-    socket.to('room1').emit('gameOn', {
+    socket.to("room1").emit('gameOn', {
         game: gameBoard,
         player1: player1
     });
 
-    socket.to('room1').on('whatever', function(data) {
+    socket.on('whatever', function(data) {
         gameBoard = data;
         player1 = !player1;
         console.log(gameBoard)
             //emit the gameboard back
-        socket.broadcast.to('room1').emit('anyhow', {
+        socket.broadcast.to("room1").emit('anyhow', {
             game: gameBoard,
             player1: player1
         });
